@@ -121,16 +121,15 @@ char *getLexem() {
 
             lexem = (char *) malloc((length + 1) * sizeof(char));
 
-            /*
-            printf("Lexema: [");
+            //printf("Lexema: [");
             for (i = 0; i < length; i++) {
                 lexem[i] = *(first + i * sizeof(char));
-                printf("%c", lexem[i]);
+                //printf("%c", lexem[i]);
             }
             lexem[length] = '\0';
 
-            printf("]\n");
-            */
+            //printf("]\n");
+
         } else {
             //Esta el inicio en fBlock y el final en sBlock
             iLength = (blockSize * sizeof(char)) - iLength;
