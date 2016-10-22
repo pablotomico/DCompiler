@@ -14,14 +14,16 @@ int main(int argc, char **argv) {
     int i = 0;
     do {
         mander = getNextChar();
-        //printf("%c", mander);
 
-        if(i%10 == 0){
-            //printf ("%s\n", getLexem());
-            getLexem();
+        if (i < 10)
+            printf("Leo %c\n", mander);
+
+        if (i == 6) {
+            printf("Reconozco [%s]\n", getLexem());
+            returnChar();
         }
         i++;
-    }while(mander !=  EOF);
+    } while (mander != EOF);
 
 
     deleteScanner();

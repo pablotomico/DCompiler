@@ -12,6 +12,8 @@ void initScanner(char *filePath);
 
 char getNextChar();
 
+void returnChar();
+
 char * getLexem();
 
 void deleteScanner();

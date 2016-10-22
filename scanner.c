@@ -93,6 +93,10 @@ char getNextChar() {
     return character;
 }
 
+void returnChar(){
+    end = end - sizeof(char);
+}
+
 char *getLexem() {
     int i = 0;
     char *lexem = NULL;
