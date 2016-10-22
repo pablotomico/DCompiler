@@ -25,9 +25,9 @@ void initScanner(char *filePath) {
 
     file = fopen(filePath, "r");
 
-    if (file == NULL) {
-        //TODO gestionar error
-    }
+    if (file == NULL)
+        exit(EXIT_FAILURE);
+
 
     struct stat bs;
     stat(filePath, &bs);

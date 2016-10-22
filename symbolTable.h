@@ -5,10 +5,14 @@
 
 #import "util/binarySearchTree.h"
 
-void initSymbolTable();
+typedef void *symbolTable;
 
-void addLexem(char *lex, int comp);
+void initSymbolTable(symbolTable *st);
 
-int getComponentByLexem(char *lex);
+void addLexem(symbolTable *st, char *lex, int comp);
 
-void deleteSymbolTable();
+int getComponentByLexem(symbolTable st, char *lex);
+
+void deleteSymbolTable(symbolTable *st);
+
+void printSymbolTable(symbolTable st);

@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "util/binarySearchTree.h"
+#include "symbolTable.h"
 #include "scanner.h"
 
-#define FILE_PATH "/home/tomico/ClionProjects/DCompiler/regression.d"
+#define FILE_PATH "/home/tomico/Documentos/GitProjects/DCompiler/regression.d"
 
 
 int main(int argc, char **argv) {
-
+    /*
     initScanner(FILE_PATH);
 
     char mander;
@@ -26,6 +26,20 @@ int main(int argc, char **argv) {
     } while (mander != EOF);
 
     deleteScanner();
+     */
+
+    symbolTable st;
+
+    initSymbolTable(&st);
+    //addLexem("asd", 1);
+    //printf("getComponentByLexem(\"dsa\") = %d\n" , getComponentByLexem("dsa"));
+
+
+
+
+
+    printSymbolTable(st);
+    deleteSymbolTable(&st);
 
     return EXIT_SUCCESS;
 }

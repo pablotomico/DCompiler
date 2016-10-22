@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/util/defParse.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/util/defParse.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.h" isTestSource="false" />
@@ -20,6 +22,7 @@
           <root url="file:///usr/include" />
           <root url="file:///usr/local/include" />
         </CLASSES>
+        <LIBRARY_FILE />
         <SOURCES>
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
           <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
