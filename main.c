@@ -25,28 +25,7 @@ int main(int argc, char **argv) {
         i++;
     } while (mander != EOF);
 
-
     deleteScanner();
-
-
-
-
-/*
-    tree myTree;
-    data myData = "ak47";
-    data myOtherData = "bbsgratis";
-
-
-    create(&myTree);
-
-    insert(&myTree, myData, 1);
-
-    insert(&myTree, myOtherData, 2);
-
-    printTree(myTree);
-
-    delete(&myTree);
-*/
 
     return EXIT_SUCCESS;
 }
