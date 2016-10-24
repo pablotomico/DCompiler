@@ -10,12 +10,13 @@ int main(int argc, char **argv) {
     initLexAnalyzer(&la);
 
 
-    /*symbolTable st;
+
+    symbolTable st;
 
     initSymbolTable(&st);
 
     printSymbolTable(st);
     deleteSymbolTable(&st);
-    */
+
     return EXIT_SUCCESS;
 }

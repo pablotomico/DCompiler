@@ -27,22 +27,29 @@ void readFirstBlock(Scanner *s) {
 
 }
 
+void createScanner(Scanner *s){
+    *s = NULL;
+}
+
 void initScanner(Scanner *s, char *filePath) {
+    Scanner sAux;
+    sAux = (Scanner) malloc(sizeof(struct scan));
 
-    (*s)->file = fopen(filePath, "r");
+    sAux->file = fopen(filePath, "r");
 
-    if ((*s)->file == NULL)
+    if (sAux->file == NULL)
         exit(EXIT_FAILURE);
 
 
     struct stat bs;
     stat(filePath, &bs);
-    (*s)->blockSize = (int) bs.st_blksize;
+    sAux->blockSize = (int) bs.st_blksize;
 
     //blockSize = 16;
 
-    (*s)->fBlock = (char *) malloc(((*s)->blockSize + 1) * sizeof(char));
-    (*s)->sBlock = (char *) malloc(((*s)->blockSize + 1) * sizeof(char));
+    sAux->fBlock = (char *) malloc((sAux->blockSize + 1) * sizeof(char));
+    sAux->sBlock = (char *) malloc((sAux->blockSize + 1) * sizeof(char));
+    *s = sAux;
 
     readFirstBlock(s);
 }
@@ -78,6 +85,7 @@ void deleteScanner(Scanner *s) {
         free((*s)->sBlock);
     }
     fclose((*s)->file);
+    free(s);
 }
 
 char getNextChar(Scanner *s) {
@@ -86,7 +94,8 @@ char getNextChar(Scanner *s) {
     char character = *((*s)->end);
 
     if (character == EOF &&
-        ((*s)->end == ((*s)->fBlock + (*s)->blockSize * sizeof(char)) || (*s)->end == ((*s)->sBlock + (*s)->blockSize * sizeof(char)))) {
+        ((*s)->end == ((*s)->fBlock + (*s)->blockSize * sizeof(char)) ||
+         (*s)->end == ((*s)->sBlock + (*s)->blockSize * sizeof(char)))) {
 
         readBlock(s);
 
@@ -99,7 +108,7 @@ char getNextChar(Scanner *s) {
     return character;
 }
 
-void returnChar(Scanner *s){
+void returnChar(Scanner *s) {
     (*s)->end = (*s)->end - sizeof(char);
 }
 
@@ -119,7 +128,7 @@ char *getLexem(Scanner *s) {
 
         //Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
         //longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
-        if (eLength == - (sizeof(char))){
+        if (eLength == -(sizeof(char))) {
             eLength = 0;
         }
 
@@ -166,7 +175,7 @@ char *getLexem(Scanner *s) {
 
         //Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
         //longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
-        if (eLength == - (sizeof(char))){
+        if (eLength == -(sizeof(char))) {
             eLength = 0;
         }
 

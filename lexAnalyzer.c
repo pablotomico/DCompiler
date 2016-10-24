@@ -13,7 +13,17 @@ struct analyzer {
 
 
 void initLexAnalyzer(lexAnalyzer *la){
-    initScanner(&((*la)->s), FILE_PATH);
+
+    lexAnalyzer laAux;
+    laAux = (lexAnalyzer) malloc(sizeof(struct analyzer));
+    laAux->s = NULL;
+    laAux->st = NULL;
+
+    createScanner(&(laAux->s));
+    initScanner(&(laAux->s), FILE_PATH);
+    initSymbolTable(&(laAux->st));
+
+    *la = laAux;
 
 }
 
@@ -28,4 +38,6 @@ int getNextComponent(lexAnalyzer *la) {
 
 void deleteLexAnalyzer(lexAnalyzer *la){
     deleteScanner(&((*la)->s));
+    deleteSymbolTable(&((*la)->st));
+    free(la);
 }

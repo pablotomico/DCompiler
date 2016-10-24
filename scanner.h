@@ -9,6 +9,8 @@
 
 typedef void *Scanner;
 
+void createScanner(Scanner *s);
+
 void initScanner(Scanner *s, char *filePath);
 
 char getNextChar(Scanner *s);
