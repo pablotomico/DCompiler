@@ -95,7 +95,7 @@ void printTree(tree t) {
     }
 
     if (t->data != NULL) {
-        printf("%s -> %d\n", t->data, t->component);
+        printf("%d -> %s\n", t->component, t->data);
     }
 
     if (t->right != NULL) {

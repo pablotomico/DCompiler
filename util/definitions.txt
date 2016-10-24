@@ -1,3 +1,11 @@
+#define import 318
+#define double 300
+#define void 367
+#define int 321
+#define while 369
+#define foreach 310
+#define return 343
+#define cast 284
 #define abstract 273
 #define alias 274
 #define align 275
@@ -9,7 +17,6 @@
 #define break 281
 #define byte 282
 #define case 283
-#define cast 284
 #define catch 285
 #define cdouble 286
 #define cent 287
@@ -25,7 +32,6 @@
 #define delegate 297
 #define deprecated 298
 #define do 299
-#define double 300
 #define else 301
 #define enum 302
 #define export 303
@@ -35,7 +41,6 @@
 #define finally 307
 #define float 308
 #define for 309
-#define foreach 310
 #define foreach_reverse 311
 #define function 312
 #define goto 313
@@ -43,10 +48,8 @@
 #define if 315
 #define ifloat 316
 #define immutable 317
-#define import 318
 #define in 319
 #define inout 320
-#define int 321
 #define interface 322
 #define invariant 323
 #define ireal 324
@@ -68,7 +71,6 @@
 #define pure 340
 #define real 341
 #define ref 342
-#define return 343
 #define scope 344
 #define shared 345
 #define short 346
@@ -92,7 +94,5 @@
 #define unittest 364
 #define ushort 365
 #define version 366
-#define void 367
 #define wchar 368
-#define while 369
 #define with 370

@@ -7,13 +7,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef void *Scanner;
 
-void initScanner(char *filePath);
+void initScanner(Scanner *s, char *filePath);
 
-char getNextChar();
+char getNextChar(Scanner *s);
 
-void returnChar();
+void returnChar(Scanner *s);
 
-char * getLexem();
+char * getLexem(Scanner *s);
 
-void deleteScanner();
+void deleteScanner(Scanner *s);
