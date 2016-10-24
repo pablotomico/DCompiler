@@ -5,10 +5,10 @@
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lexAnalizer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lexAnalyzer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lexAnalizer.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lexAnalyzer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.c" isTestSource="false" />

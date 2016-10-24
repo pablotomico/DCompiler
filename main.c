@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "symbolTable.h"
 #include "scanner.h"
-#include "lexAnalizer.h"
+#include "lexAnalyzer.h"
 
 
 int main(int argc, char **argv) {
-    lexAnalizer la;
-    initLexAnalizer(&la);
+    lexAnalyzer la;
+    initLexAnalyzer(&la);
 
 
     /*symbolTable st;

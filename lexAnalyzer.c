@@ -4,20 +4,20 @@
 
 #define FILE_PATH "/home/tomico/Documentos/GitProjects/DCompiler/regression.d"
 
-typedef struct analizer *lexAnalizer;
-struct analizer {
+typedef struct analyzer *lexAnalyzer;
+struct analyzer {
     symbolTable st;
     Scanner s;
 };
 
 
 
-void initLexAnalizer(lexAnalizer *la){
+void initLexAnalyzer(lexAnalyzer *la){
     initScanner(&((*la)->s), FILE_PATH);
 
 }
 
-int getNextComponent(lexAnalizer *la) {
+int getNextComponent(lexAnalyzer *la) {
     char c;
     c = getNextChar(&((*la)->s));
 
@@ -26,6 +26,6 @@ int getNextComponent(lexAnalizer *la) {
     return 0;
 }
 
-void deleteLexAnalizer(lexAnalizer *la){
+void deleteLexAnalyzer(lexAnalyzer *la){
     deleteScanner(&((*la)->s));
 }
