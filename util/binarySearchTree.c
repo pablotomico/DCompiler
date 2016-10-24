@@ -26,6 +26,7 @@ data getData(tree t) {
 }
 
 int getComponentByLex(tree t, data d) {
+
     int res = strcmp(d, t->data);
     if (res < 0) {
         if (t->left != NULL) {

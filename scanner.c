@@ -85,7 +85,6 @@ void deleteScanner(Scanner *s) {
         free((*s)->sBlock);
     }
     fclose((*s)->file);
-    free(s);
 }
 
 char getNextChar(Scanner *s) {

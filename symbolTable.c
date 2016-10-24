@@ -15,6 +15,10 @@ struct table {
 
 void executeParse(symbolTable *st, char *filePath);
 
+void createSymbolTable(symbolTable *st){
+    *st = NULL;
+}
+
 void initSymbolTable(symbolTable *st) {
     symbolTable stAux;
     stAux = (symbolTable) malloc(sizeof(struct table));
@@ -28,11 +32,13 @@ void initSymbolTable(symbolTable *st) {
 }
 
 void addLexem(symbolTable *st, char *lex, int comp) {
-    char *lexem = (char *) malloc (sizeof(char) * strlen(lex));
+    char *lexem = (char *) malloc(sizeof(char) * (strlen(lex) + 1));
     int i = 0;
-    for (i = 0; i<strlen(lex); i++){
+    size_t length = strlen(lex) * sizeof(char);
+    for (i = 0; i < strlen(lex); i++) {
         lexem[i] = lex[i];
     }
+    lexem[length] = '\0';
     insert(&((*st)->t), lexem, comp);
 }
 
@@ -77,12 +83,11 @@ void executeParse(symbolTable *st, char *filePath) {
         res = strcmp(word, "#define");
         if (res != 0 && isalpha(word[0])) {
             length = strlen(word) * sizeof(char);
-            lex = (char*)malloc( length + 1);
-            for (i = 0; i < length; i++){
+            lex = (char *) malloc(length + sizeof(char));
+            for (i = 0; i < length; i++) {
                 lex[i] = word[i];
             }
             lex[length] = '\0';
-            printf("SESAE: %s\n", lex);
             word = strtok(NULL, " ");
             if (word != NULL && isdigit(word[0])) {
                 component = atoi(word);
@@ -92,11 +97,7 @@ void executeParse(symbolTable *st, char *filePath) {
             }
         }
 
-
         //printf("%s\n", word);
-
-
-
     }
 
     fclose((*st)->file);

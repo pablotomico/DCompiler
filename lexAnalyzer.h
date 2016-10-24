@@ -4,8 +4,12 @@
 #endif //DCOMPILER_LEXANALIZER_H
 
 typedef void *lexAnalyzer;
+typedef struct {
+    char *lexem;
+    int component;
+} lex;
 
-int getNextComponent(lexAnalyzer *la);
+lex getNextComponent(lexAnalyzer *la);
 
 void initLexAnalyzer(lexAnalyzer *la);
 

@@ -7,6 +7,8 @@
 
 typedef void *symbolTable;
 
+void createSymbolTable(symbolTable *st);
+
 void initSymbolTable(symbolTable *st);
 
 void addLexem(symbolTable *st, char *lex, int comp);
