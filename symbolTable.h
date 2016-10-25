@@ -3,7 +3,7 @@
 
 #endif //DCOMPILER_SYMBOLTABLE_H
 
-#import "util/binarySearchTree.h"
+#include "util/binarySearchTree.h"
 
 typedef void *symbolTable;
 

@@ -27,7 +27,7 @@ void readFirstBlock(Scanner *s) {
 
 }
 
-void createScanner(Scanner *s){
+void createScanner(Scanner *s) {
     *s = NULL;
 }
 
@@ -110,6 +110,23 @@ char getNextChar(Scanner *s) {
 void returnChar(Scanner *s) {
     (*s)->end = (*s)->end - sizeof(char);
 }
+
+void ignoreNextChar(Scanner *s) {
+
+
+    (*s)->end = (*s)->end + sizeof(char);
+    (*s)->first = (*s)->end;
+    returnChar(s);
+    char character = *((*s)->end);
+
+    if (character == EOF &&
+        ((*s)->end == ((*s)->fBlock + (*s)->blockSize * sizeof(char)) ||
+         (*s)->end == ((*s)->sBlock + (*s)->blockSize * sizeof(char)))) {
+
+        readBlock(s);
+    }
+}
+
 
 char *getLexem(Scanner *s) {
     int i = 0;
@@ -213,7 +230,7 @@ char *getLexem(Scanner *s) {
 
 
     (*s)->first = (*s)->end;
-    //end = first - sizeof(char);
+
     return lexem;
 }
 

@@ -10,11 +10,9 @@ int main(int argc, char **argv) {
     initLexAnalyzer(&la);
     int i = 0;
     lex l;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 30; i++) {
         l = getNextComponent(&la);
-        printf("%d -> [%s]\n", l.component, l.lexem);
-
-
+        printf("%3d -> [%s]\n", l.component, l.lexem);
     }
 
 
