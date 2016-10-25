@@ -8,14 +8,20 @@
 int main(int argc, char **argv) {
     lexAnalyzer la;
     initLexAnalyzer(&la);
-    int i = 0;
     lex l;
-    for (i = 0; i < 30; i++) {
+
+    /*int i;
+    for(i=0;i<5;i++){
         l = getNextComponent(&la);
         printf("%3d -> [%s]\n", l.component, l.lexem);
-    }
+    }*/
 
+    do{
+        l = getNextComponent(&la);
+        printf("%3d -> %s\n", l.component, l.lexem);
+    }while(l.component != EOF);
 
+    printSymbols(&la);
 /*    symbolTable st;
 
     initSymbolTable(&st);

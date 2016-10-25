@@ -51,6 +51,10 @@ void deleteSymbolTable(symbolTable *st) {
 }
 
 void printSymbolTable(symbolTable st) {
+    printf("\n\n======================== \n");
+    printf("===== SYMBOL TABLE ===== \n");
+    printf("=== (Comp) --> (Lex) === \n");
+    printf("======================== \n");
     printTree(st->t);
 }
 

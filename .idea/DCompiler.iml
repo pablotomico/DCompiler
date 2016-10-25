@@ -10,7 +10,10 @@
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/util/binarySearchTree.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/util/lexDefinitions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lexicAnalysisFunctions.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lexicAnalysisFunctions.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

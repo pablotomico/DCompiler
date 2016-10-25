@@ -1,30 +1,10 @@
 #include <ctype.h>
 #include "symbolTable.h"
 #include "scanner.h"
+#include "util/lexDefinitions.h"
+#include "lexicAnalysisFunctions.h"
 
 #define FILE_PATH "/home/tomico/Documentos/GitProjects/DCompiler/regression.d"
-#define IDENTIFIER 400
-#define STRING 401
-#define CHARACTER 402
-#define INTEGER 403
-#define FLOAT 404
-#define BINARY 405
-#define PLUSPLUS 406
-#define MINUSMINUS 407
-#define EQUALEQUAL 408
-#define GREATEREQUAL 409
-#define LESSEQUAL 410
-#define PLUSEQUAL 411
-#define MINUSEQUAL 412
-#define MULTEQUAL 413
-#define GREATERGREATER 414
-#define LESSLESS 415
-#define PERCENTPERCENT 416
-#define ANDAND 417
-#define ANDEQUAL 418
-#define OROR 419
-#define OREQUAL 420
-#define DOCCOMMENT 421
 
 
 typedef struct analyzer *lexAnalyzer;
@@ -37,25 +17,6 @@ typedef struct {
     char *lexem;
     int component;
 } lex;
-
-
-bool isIdentifierChar(char c);
-
-bool isIdentifierInitialChar(char c);
-
-bool isTrashChar(char c);
-
-bool isSeparator(char c);
-
-bool isStructureSymbol(char c);
-
-bool isOperatorInitialChar(char c);
-
-bool isNumberInitialChar(char c);
-
-bool isNumberChar(char c);
-
-bool isBinaryChar(char c);
 
 
 void confirmLexem(lexAnalyzer *la) {
@@ -90,7 +51,7 @@ lex getNextComponent(lexAnalyzer *la) {
     char c;
     char *lexem = NULL;
     int res = -1;
-    int nested_count= 0;
+    int nested_count = 0;
     enum state {
         S_INITIAL,
         S_IDENTIFIER,
@@ -104,8 +65,7 @@ lex getNextComponent(lexAnalyzer *la) {
         S_COMMENT_ONELINE,
         S_COMMENT_MULTILINE,
         S_COMMENT_NESTED,
-        S_STRING_LITERAL,
-        S_CHAR_LITERAL
+        S_STRING_LITERAL
     };
     enum state s = S_INITIAL;
     c = getNextChar(&((*la)->s));
@@ -115,7 +75,11 @@ lex getNextComponent(lexAnalyzer *la) {
         //TODO Implement lexical analyzer
         switch (s) {
             case S_INITIAL:
-                if (isTrashChar(c)) {
+                if (c == EOF) {
+                    l.lexem = "$";
+                    l.component = EOF;
+                    s = S_FINAL;
+                } else if (isTrashChar(c)) {
                     s = S_TRASH;
                 } else if (isSeparator(c)) {
                     s = S_SEPARATOR;
@@ -127,7 +91,11 @@ lex getNextComponent(lexAnalyzer *la) {
                     s = S_IDENTIFIER;
                 } else if (isNumberInitialChar(c)) {
                     s = S_NUMBER;
+                } else if (isStringLiteralInitialChar(c)) {
+                    s = S_STRING_LITERAL;
                 } else {
+                    res = EOF;
+                    lexem = "$";
                     s = S_FINAL;
                 }
 
@@ -308,18 +276,19 @@ lex getNextComponent(lexAnalyzer *la) {
                                     res = '0';
 
                                     //Confirmamos lexema pero no devolvemos el componente lexico
+
                                     getLexem(&((*la)->s));
                                     confirmLexem(la);
-
-                                    lexem = NULL;
                                     c = getNextChar(&((*la)->s));
+                                    lexem = NULL;
+
                                     s = S_INITIAL;
                                 } else {
                                     while (s != S_FINAL) {
                                         c = getNextChar(&((*la)->s));
-                                        if(c == EOF){
+                                        if (c == EOF) {
                                             //TODO gestionar unexpetedEOF
-                                        }else if (c == '*') {
+                                        } else if (c == '*') {
                                             c = getNextChar(&((*la)->s));
                                             if (c == '/') {
                                                 res = DOCCOMMENT;
@@ -363,18 +332,22 @@ lex getNextComponent(lexAnalyzer *la) {
                 break;
 
             case S_COMMENT_MULTILINE:
-                nested_count = 1;
                 while (s != S_INITIAL) {
                     c = getNextChar(&((*la)->s));
-                    if(c == EOF){
+                    if (c == EOF) {
                         //TODO gestionar unexpetedEOF
-                    }else if (c == '*') {
+                    } else if (c == '*') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
                             res = '0';
+                            lexem = NULL;
                             c = getNextChar(&((*la)->s));
-                            lexem = getLexem(&((*la)->s));
+                            getLexem(&((*la)->s));
                             confirmLexem(la);
+
+                            c = getNextChar(&((*la)->s));
+
+
                             s = S_INITIAL;
                         }
                     }
@@ -385,14 +358,14 @@ lex getNextComponent(lexAnalyzer *la) {
                 nested_count = 1;
                 while (nested_count > 0) {
                     c = getNextChar(&((*la)->s));
-                    if(c == EOF){
+                    if (c == EOF) {
                         //TODO gestionar unexpetedEOF
-                    }else if (c == '+') {
+                    } else if (c == '+') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
                             nested_count--;
                         }
-                    }else if(c == '/'){
+                    } else if (c == '/') {
                         c = getNextChar(&((*la)->s));
                         if (c == '+') {
                             nested_count++;
@@ -400,10 +373,12 @@ lex getNextComponent(lexAnalyzer *la) {
                     }
                 }
                 res = '0';
+                lexem = NULL;
                 c = getNextChar(&((*la)->s));
-                lexem = getLexem(&((*la)->s));
+                getLexem(&((*la)->s));
                 confirmLexem(la);
 
+                c = getNextChar(&((*la)->s));
                 s = S_INITIAL;
                 break;
 
@@ -455,14 +430,30 @@ lex getNextComponent(lexAnalyzer *la) {
                     //TODO Gestionar error de binario mal formado
                     printf("BINARIO MAL FORMAO\n");
                     lexem = getLexem(&((*la)->s));
-                    //returnChar(&((*la)->s));
                     confirmLexem(la);
                     res = BINARY;
                     s = S_FINAL;
                 }
                 break;
 
-            //TODO implement string literal and char literal states
+
+            case S_STRING_LITERAL:
+                while (s != S_FINAL) {
+                    c = getNextChar(&((*la)->s));
+                    if (c == '\\') {
+                        c = getNextChar(&((*la)->s));
+                    } else if (c == '"') {
+                        c = getNextChar(&((*la)->s));
+                        lexem = getLexem(&((*la)->s));
+                        confirmLexem(la);
+                        res = STRING;
+                        s = S_FINAL;
+                    } else if (c == EOF) {
+                        //TODO unexpected EOF
+                        s = S_FINAL;
+                    }
+                }
+                break;
 
             case S_TRASH:
                 if (c == '\n') {
@@ -473,9 +464,15 @@ lex getNextComponent(lexAnalyzer *la) {
                 s = S_INITIAL;
                 break;
             case S_FINAL:
+
                 l.component = res;
                 l.lexem = lexem;
+                if (res == -1) {
+                    l.component = EOF;
+                    l.lexem = "$";
+                }
                 return l;
+
         }
 
     } while (true);
@@ -486,76 +483,6 @@ void deleteLexAnalyzer(lexAnalyzer *la) {
     deleteSymbolTable(&((*la)->st));
 }
 
-bool isIdentifierInitialChar(char c) {
-    if (isalpha(c) || c == '_') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isIdentifierChar(char c) {
-    if (isalpha(c) || c == '_' || isdigit(c)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isTrashChar(char c) {
-    if (c == '\n' || c == '\t' || c == ' ') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isSeparator(char c) {
-    if (c == ';' || c == ',' || c == '.') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isStructureSymbol(char c) {
-    if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isOperatorInitialChar(char c) {
-    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '>' || c == '<' || c == '%' || c == '&' || c == '|' ||
-        c == '=') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isNumberInitialChar(char c) {
-    if (isdigit(c)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isNumberChar(char c) {
-    if (isdigit(c) || c == '_') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool isBinaryChar(char c) {
-    if (c == '0' || c == '1') {
-        return true;
-    } else {
-        return false;
-    }
-
+void printSymbols(lexAnalyzer *la) {
+    printSymbolTable((*la)->st);
 }

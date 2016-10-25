@@ -14,3 +14,5 @@ lex getNextComponent(lexAnalyzer *la);
 void initLexAnalyzer(lexAnalyzer *la);
 
 void deleteLexAnalyzer(lexAnalyzer *la);
+
+void printSymbols(lexAnalyzer *la);
