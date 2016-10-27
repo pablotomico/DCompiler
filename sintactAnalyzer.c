@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
         printf("%3d -> %s\n", l.component, l.lexem);
     }while(l.component != EOF);
 
-    //printSymbols(&la);
+    printSymbols(&la);
 /*    symbolTable st;
 
     initSymbolTable(&st);
