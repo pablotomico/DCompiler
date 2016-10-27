@@ -3,6 +3,7 @@
 #include "scanner.h"
 #include "util/lexDefinitions.h"
 #include "lexicAnalysisFunctions.h"
+#include "errorManager.h"
 
 #define FILE_PATH "/home/tomico/Documentos/GitProjects/DCompiler/regression.d"
 
@@ -287,7 +288,11 @@ lex getNextComponent(lexAnalyzer *la) {
                                     while (s != S_FINAL) {
                                         c = getNextChar(&((*la)->s));
                                         if (c == EOF) {
-                                            //TODO gestionar unexpetedEOF
+                                            unexpectedEOF(((*la)->n_line));
+                                            res = '0';
+                                            lexem = NULL;
+                                            s = S_FINAL;
+                                            break;
                                         } else if (c == '*') {
                                             c = getNextChar(&((*la)->s));
                                             if (c == '/') {
@@ -335,7 +340,11 @@ lex getNextComponent(lexAnalyzer *la) {
                 while (s != S_INITIAL) {
                     c = getNextChar(&((*la)->s));
                     if (c == EOF) {
-                        //TODO gestionar unexpetedEOF
+                        unexpectedEOF(((*la)->n_line));
+                        res = '0';
+                        lexem = NULL;
+                        s = S_FINAL;
+                        break;
                     } else if (c == '*') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
@@ -359,7 +368,11 @@ lex getNextComponent(lexAnalyzer *la) {
                 while (nested_count > 0) {
                     c = getNextChar(&((*la)->s));
                     if (c == EOF) {
-                        //TODO gestionar unexpetedEOF
+                        unexpectedEOF(((*la)->n_line));
+                        res = '0';
+                        lexem = NULL;
+                        s = S_FINAL;
+                        break;
                     } else if (c == '+') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
@@ -449,8 +462,11 @@ lex getNextComponent(lexAnalyzer *la) {
                         res = STRING;
                         s = S_FINAL;
                     } else if (c == EOF) {
-                        //TODO unexpected EOF
+                        unexpectedEOF(((*la)->n_line));
+                        res = '0';
+                        lexem = NULL;
                         s = S_FINAL;
+                        break;
                     }
                 }
                 break;

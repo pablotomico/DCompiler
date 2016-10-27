@@ -1,0 +1,7 @@
+#ifndef DCOMPILER_ERRORMANAGER_H
+#define DCOMPILER_ERRORMANAGER_H
+
+#endif //DCOMPILER_ERRORMANAGER_H
+
+
+void unexpectedEOF(char *msg);
