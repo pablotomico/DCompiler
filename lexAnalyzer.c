@@ -1,4 +1,3 @@
-#include <ctype.h>
 #include "symbolTable.h"
 #include "scanner.h"
 #include "util/lexDefinitions.h"
@@ -51,7 +50,7 @@ lex getNextComponent(lexAnalyzer *la) {
     lex l;
     char c;
     char *lexem = NULL;
-    int res = -1;
+    int res = 0;
     int nested_count = 0;
     enum state {
         S_INITIAL,
@@ -73,12 +72,11 @@ lex getNextComponent(lexAnalyzer *la) {
 
 
     do {
-        //TODO Implement lexical analyzer
         switch (s) {
             case S_INITIAL:
                 if (c == EOF) {
-                    l.lexem = "$";
-                    l.component = EOF;
+                    lexem = "$";
+                    res = EOF;
                     s = S_FINAL;
                 } else if (isTrashChar(c)) {
                     s = S_TRASH;
@@ -265,13 +263,24 @@ lex getNextComponent(lexAnalyzer *la) {
                         s = S_FINAL;
                         break;
                     case '/':
-                        //TODO Comments
                         c = getNextChar(&((*la)->s));
-                        if (c == '/') {
+                        if(c == EOF){
+                            unexpectedEOF(((*la)->n_line));
+                            res = '0';
+                            lexem = NULL;
+                            s = S_INITIAL;
+                            break;
+                        }else if (c == '/') {
                             s = S_COMMENT_ONELINE;
                         } else if (c == '*') {
                             c = getNextChar(&((*la)->s));
-                            if (c == '*') {
+                            if(c == EOF){
+                                unexpectedEOF(((*la)->n_line));
+                                res = '0';
+                                lexem = NULL;
+                                s = S_INITIAL;
+                                break;
+                            } else if (c == '*') {
                                 c = getNextChar(&((*la)->s));
                                 if (c == '/') {
                                     res = '0';
@@ -284,15 +293,19 @@ lex getNextComponent(lexAnalyzer *la) {
                                     lexem = NULL;
 
                                     s = S_INITIAL;
-                                } else {
+                                } else if (c == '\n'){
+                                    newLine(la);
+                                }else {
                                     while (s != S_FINAL) {
                                         c = getNextChar(&((*la)->s));
                                         if (c == EOF) {
                                             unexpectedEOF(((*la)->n_line));
                                             res = '0';
                                             lexem = NULL;
-                                            s = S_FINAL;
+                                            s = S_INITIAL;
                                             break;
+                                        } else if (c == '\n') {
+                                            newLine(la);
                                         } else if (c == '*') {
                                             c = getNextChar(&((*la)->s));
                                             if (c == '/') {
@@ -330,6 +343,7 @@ lex getNextComponent(lexAnalyzer *la) {
                 do {
                     c = getNextChar(&((*la)->s));
                 } while (c != '\n');
+                //newLine(la);
                 lexem = getLexem(&((*la)->s));
                 confirmLexem(la);
                 c = getNextChar(&((*la)->s));
@@ -343,8 +357,10 @@ lex getNextComponent(lexAnalyzer *la) {
                         unexpectedEOF(((*la)->n_line));
                         res = '0';
                         lexem = NULL;
-                        s = S_FINAL;
+                        s = S_INITIAL;
                         break;
+                    } else if (c == '\n') {
+                        newLine(la);
                     } else if (c == '*') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
@@ -371,17 +387,23 @@ lex getNextComponent(lexAnalyzer *la) {
                         unexpectedEOF(((*la)->n_line));
                         res = '0';
                         lexem = NULL;
-                        s = S_FINAL;
+                        s = S_INITIAL;
                         break;
+                    } else if (c == '\n') {
+                        newLine(la);
                     } else if (c == '+') {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
                             nested_count--;
+                        }else if (c == '\n'){
+                            newLine(la);
                         }
                     } else if (c == '/') {
                         c = getNextChar(&((*la)->s));
                         if (c == '+') {
                             nested_count++;
+                        }else if (c == '\n'){
+                            newLine(la);
                         }
                     }
                 }
@@ -406,25 +428,54 @@ lex getNextComponent(lexAnalyzer *la) {
                 while (isNumberChar(c)) {
                     c = getNextChar(&((*la)->s));
                 }
+
+
+                res = INTEGER;
+
                 if (c == '.') {
                     //Reconocemos la segunda parte del float
                     do {
                         c = getNextChar(&((*la)->s));
                     } while (isNumberChar(c));
-                    lexem = getLexem(&((*la)->s));
-                    confirmLexem(la);
+
 
                     res = FLOAT;
-                    s = S_FINAL;
 
-                } else {
-                    lexem = getLexem(&((*la)->s));
-                    //returnChar(&((*la)->s));
-                    confirmLexem(la);
-
-                    res = INTEGER;
-                    s = S_FINAL;
                 }
+                if (c == 'e') {
+                    //Pasamos a ronocer un numero en notacion cientifica
+                    c = getNextChar(&((*la)->s));
+                    if (c == '-' || c == '+') {
+                        c = getNextChar(&((*la)->s));
+                        if (isNumberChar(c)) {
+                            while (isNumberChar(c)) {
+                                c = getNextChar(&((*la)->s));
+                            }
+                        } else {
+                            lexem = getLexem(&((*la)->s));
+                            confirmLexem(la);
+                            s = S_INITIAL;
+                            malformedScientific((*la)->n_line, lexem);
+                            break;
+                        }
+                        res = CIENTIFIC;
+                    } else if (isNumberChar(c)) {
+                        while (isNumberChar(c)) {
+                            c = getNextChar(&((*la)->s));
+                        }
+                        res = CIENTIFIC;
+                    } else {
+                        lexem = getLexem(&((*la)->s));
+                        confirmLexem(la);
+                        s = S_INITIAL;
+                        malformedScientific((*la)->n_line, lexem);
+                        break;
+                    }
+
+                }
+                lexem = getLexem(&((*la)->s));
+                confirmLexem(la);
+                s = S_FINAL;
 
                 break;
 
@@ -435,17 +486,15 @@ lex getNextComponent(lexAnalyzer *la) {
                         c = getNextChar(&((*la)->s));
                     } while (isBinaryChar(c));
                     lexem = getLexem(&((*la)->s));
-                    //returnChar(&((*la)->s));
                     confirmLexem(la);
                     res = BINARY;
                     s = S_FINAL;
                 } else {
-                    //TODO Gestionar error de binario mal formado
-                    printf("BINARIO MAL FORMAO\n");
                     lexem = getLexem(&((*la)->s));
                     confirmLexem(la);
+                    malformedBinary((*la)->n_line, lexem);
                     res = BINARY;
-                    s = S_FINAL;
+                    s = S_INITIAL;
                 }
                 break;
 
@@ -455,6 +504,8 @@ lex getNextComponent(lexAnalyzer *la) {
                     c = getNextChar(&((*la)->s));
                     if (c == '\\') {
                         c = getNextChar(&((*la)->s));
+                    } else if (c == '\n') {
+                        newLine(la);
                     } else if (c == '"') {
                         c = getNextChar(&((*la)->s));
                         lexem = getLexem(&((*la)->s));
@@ -465,7 +516,7 @@ lex getNextComponent(lexAnalyzer *la) {
                         unexpectedEOF(((*la)->n_line));
                         res = '0';
                         lexem = NULL;
-                        s = S_FINAL;
+                        s = S_INITIAL;
                         break;
                     }
                 }
@@ -481,12 +532,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 break;
             case S_FINAL:
 
+
                 l.component = res;
                 l.lexem = lexem;
-                if (res == -1) {
-                    l.component = EOF;
-                    l.lexem = "$";
-                }
                 return l;
 
         }

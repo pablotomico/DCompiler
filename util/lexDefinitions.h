@@ -5,9 +5,9 @@
 
 #define IDENTIFIER 400
 #define STRING 401
-#define CHARACTER 402
-#define INTEGER 403
-#define FLOAT 404
+#define INTEGER 402
+#define FLOAT 403
+#define CIENTIFIC 404
 #define BINARY 405
 #define PLUSPLUS 406
 #define MINUSMINUS 407

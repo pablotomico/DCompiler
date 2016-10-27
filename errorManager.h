@@ -4,4 +4,10 @@
 #endif //DCOMPILER_ERRORMANAGER_H
 
 
-void unexpectedEOF(char *msg);
+void unexpectedEOF(int lineNumber);
+
+void malformedBinary(int lineNumber, char* number);
+
+void malformedScientific(int lineNumber, char* number);
+
+void fatalError(char* msg);

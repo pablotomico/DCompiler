@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lexAnalyzer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sintactAnalyzer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scanner.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lexAnalyzer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />

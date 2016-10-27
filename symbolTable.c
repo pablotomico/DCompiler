@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "util/binarySearchTree.h"
+#include "errorManager.h"
 
 #define DEFINITIONS_PATH "/home/tomico/Documentos/GitProjects/DCompiler/util/definitions.txt"
 
@@ -73,6 +74,7 @@ void executeParse(symbolTable *st, char *filePath) {
     (*st)->file = fopen(filePath, "r");
 
     if ((*st)->file == NULL) {
+        fatalError("Couldn't read definitions file!");
         exit(EXIT_FAILURE);
     }
 

@@ -1,6 +1,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "errorManager.h"
 
 
 typedef struct scan *Scanner;
@@ -37,8 +38,10 @@ void initScanner(Scanner *s, char *filePath) {
 
     sAux->file = fopen(filePath, "r");
 
-    if (sAux->file == NULL)
+    if (sAux->file == NULL) {
+        fatalError("Couldn't read code file!");
         exit(EXIT_FAILURE);
+    }
 
 
     struct stat bs;
