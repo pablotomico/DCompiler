@@ -22,14 +22,6 @@ int main(int argc, char **argv) {
     }while(l.component != EOF);
 
     printSymbols(&la);
-/*    symbolTable st;
-
-    initSymbolTable(&st);
-
-    printSymbolTable(st);
-    deleteSymbolTable(&st);
-*/
-
 
     deleteLexAnalyzer(&la);
     return EXIT_SUCCESS;

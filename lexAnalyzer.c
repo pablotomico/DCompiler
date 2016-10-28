@@ -505,6 +505,7 @@ lex getNextComponent(lexAnalyzer *la) {
                     if (c == '\\') {
                         c = getNextChar(&((*la)->s));
                     } else if (c == '\n') {
+                        unexpectedEndOfLine((*la)->n_line);
                         newLine(la);
                     } else if (c == '"') {
                         c = getNextChar(&((*la)->s));

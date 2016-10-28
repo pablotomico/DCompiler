@@ -4,17 +4,27 @@
 #define KWHT  "\x1B[37m"
 
 void unexpectedEOF(int lineNumber){
-    printf("%sERROR: unexpected EOF at line %d\n", KYEL, lineNumber);
+    printf("%sERROR: unexpected EOF at line %d\n", KRED, lineNumber);
+    printf("%s", KWHT);
+}
+
+void unexpectedEndOfLine(int lineNumber){
+    printf("%sERROR: unexpected end of line '\\n' at line %d\n", KRED, lineNumber);
     printf("%s", KWHT);
 }
 
 void malformedBinary(int lineNumber, char* number){
-    printf("%sERROR: malformed binary at line %d: expected [0-1] sequence after \"%s\"\n", KYEL, lineNumber, number);
+    printf("%sERROR: malformed binary at line %d: expected [0-1] sequence after \"%s\"\n", KRED, lineNumber, number);
     printf("%s", KWHT);
 }
 
 void malformedScientific(int lineNumber, char* number){
-    printf("%sERROR: malformed scientific number at line %d: expected number after \"%s\"\n", KYEL, lineNumber, number);
+    printf("%sERROR: malformed scientific number at line %d: expected number after \"%s\"\n", KRED, lineNumber, number);
+    printf("%s", KWHT);
+}
+
+void showWarning(char* msg){
+    printf("%sWARNING: %s\n", KYEL, msg);
     printf("%s", KWHT);
 }
 
