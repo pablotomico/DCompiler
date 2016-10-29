@@ -544,8 +544,11 @@ lex getNextComponent(lexAnalyzer *la) {
 }
 
 void deleteLexAnalyzer(lexAnalyzer *la) {
-    deleteScanner(&((*la)->s));
-    deleteSymbolTable(&((*la)->st));
+    lexAnalyzer laAux;
+    laAux = *la;
+    deleteScanner(&(laAux->s));
+    deleteSymbolTable(&(laAux->st));
+    free(laAux);
 }
 
 void printSymbols(lexAnalyzer *la) {

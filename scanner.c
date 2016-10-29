@@ -84,13 +84,16 @@ void readBlock(Scanner *s) {
 }
 
 void deleteScanner(Scanner *s) {
-    if ((*s)->fBlock != NULL) {
-        free((*s)->fBlock);
+    Scanner sAux;
+    sAux = *s;
+    if (sAux->fBlock != NULL) {
+        free(sAux->fBlock);
     }
-    if ((*s)->sBlock != NULL) {
-        free((*s)->sBlock);
+    if (sAux->sBlock != NULL) {
+        free(sAux->sBlock);
     }
-    fclose((*s)->file);
+    fclose(sAux->file);
+    free(sAux);
 }
 
 char getNextChar(Scanner *s) {

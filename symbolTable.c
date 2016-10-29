@@ -48,7 +48,10 @@ int getComponentByLexem(symbolTable st, char *lex) {
 }
 
 void deleteSymbolTable(symbolTable *st) {
-    delete(&((*st)->t));
+    symbolTable stAux;
+    stAux = *st;
+    delete(&(stAux->t));
+    free(stAux);
 }
 
 void printSymbolTable(symbolTable st) {

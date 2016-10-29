@@ -10,15 +10,14 @@ int main(int argc, char **argv) {
     initLexAnalyzer(&la);
     lex l;
 
-    /*int i;
-    for(i=0;i<5;i++){
-        l = getNextComponent(&la);
-        printf("%3d -> [%s]\n", l.component, l.lexem);
-    }*/
+    printf("\n===========================\n");
+    printf("===== SYNTAX ANALYSIS ===== \n");
+    printf("==== (Comp) --> (Lex)  ==== \n");
+    printf("=========================== \n");
 
     do{
         l = getNextComponent(&la);
-        printf("%3d -> %s\n", l.component, l.lexem);
+        printf("       %3d  -->  %s\n", l.component, l.lexem);
     }while(l.component != EOF);
 
     printSymbols(&la);

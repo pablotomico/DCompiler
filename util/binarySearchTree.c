@@ -12,7 +12,6 @@ struct node {
     tree right;
 };
 
-
 void create(tree *t) {
     *t = NULL;
 }
@@ -103,5 +102,8 @@ void printTree(tree t) {
         printTree(t->right);
     }
 }
+
+
+
 
 
