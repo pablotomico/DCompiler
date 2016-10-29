@@ -3,6 +3,12 @@
 
 #endif //DCOMPILER_LEXDEFINITIONS_H
 
+/*
+ * En este fichero se encuentran las definiciones de los componentes léxicos para cada una de las posibilidades
+ * que reconocemos en el analizador léxico. Si queremos reconocer más tipos de operadores o elementos, solamente
+ * tendremos que definir aquí un componente léxico.
+ */
+
 #define IDENTIFIER 400
 #define STRING 401
 #define INTEGER 402

@@ -45,7 +45,9 @@ void initScanner(Scanner *s, char *filePath) {
         exit(EXIT_FAILURE);
     }
 
-
+    /*
+     * Obtenemos el tamaño de bloque del sistema mediante stat
+     */
     struct stat bs;
     stat(filePath, &bs);
     sAux->blockSize = (int) bs.st_blksize;
@@ -101,7 +103,10 @@ char getNextChar(Scanner *s) {
     (*s)->end = (*s)->end + sizeof(char);
     char character = *((*s)->end);
 
-
+    /*
+     * Si encontramos un EOF, tenemos que comprobar tambien que el puntero end se encuentra en uno de los EOF que
+     * insertamos anteriormente nosotros y no se trata del EOF del fichero.
+     */
     if (character == EOF &&
         ((*s)->end == ((*s)->fBlock + (*s)->blockSize * sizeof(char)) ||
          (*s)->end == ((*s)->sBlock + (*s)->blockSize * sizeof(char)))) {
@@ -120,18 +125,37 @@ char getNextChar(Scanner *s) {
 }
 
 void returnChar(Scanner *s) {
+    /*
+     * Para devolver un caracter, como en la operacion de getNextChar avanzamos end una posicion al inicio de la operacion
+     * aqui simplemente debemos retroceder dicho puntero una posicion, ya que aunque el caracter que estemos devolviendo
+     * sea el primero de uno de los bloques y por tanto situemos end fuera, no llegaremos nunca a leer el valor al que apunta
+     * end al devolverlo.
+     */
     (*s)->end = (*s)->end - sizeof(char);
     (*s)->readChars--;
 }
 
 void ignoreNextChar(Scanner *s) {
 
+    /*
+     * Aquí realizamos la misma operacion que en getNextChar, solo que tambien avanzamos el puntero first para seguir leyendo
+     * la siguiente vez el caracter correspondiente y colocar el inicio del componente en esa posicion, es decir, sin contar 
+     * el caracter que estamos ignorando en este momento.
+     */
     (*s)->end = (*s)->end + sizeof(char);
     (*s)->first = (*s)->end;
+
+    /*
+     * Ademas tenemos que devolver un char para que la siguiente vez al hacer un getNextChar no adelantemos end una posicion
+     * de más.
+     */
     returnChar(s);
     char character = *((*s)->end);
     (*s)->readChars = 0;
 
+    /*
+     * Como en el caso de getNextChar, debemos comprobar de que tipo de EOF se trata (de la misma forma).
+     */
     if (character == EOF &&
         ((*s)->end == ((*s)->fBlock + (*s)->blockSize * sizeof(char)) ||
          (*s)->end == ((*s)->sBlock + (*s)->blockSize * sizeof(char)))) {
@@ -155,7 +179,7 @@ char *getLexem(Scanner *s) {
     if ((*s)->readChars > (*s)->blockSize) {
         /*
          * Si el tamaño de los que hemos leido supera el tamaño de bloque, avisaremos de que es posible que se produzcan
-         * errores a la hora de devolver el componente
+         * errores a la hora de devolver el componente.
          */
         showWarning("Your request is too large, may cause problems");
 
@@ -245,6 +269,7 @@ char *getLexem(Scanner *s) {
                         iLength = (*s)->blockSize - iLength;
                         lexem = (char *) malloc((length + 1) * sizeof(char));
                         eLength = ((*s)->end - (*s)->sBlock) / sizeof(char);
+
                         j = 0;
                         for (i = 0; i < iLength; i++) {
                             lexem[j] = *((*s)->first + i * sizeof(char));
@@ -255,11 +280,13 @@ char *getLexem(Scanner *s) {
                             j++;
                         }
                         lexem[length] = '\0';
+
                     } else {
                         iLength = (*s)->first - (*s)->sBlock;
                         iLength = (*s)->blockSize - iLength;
                         lexem = (char *) malloc((length + 1) * sizeof(char));
                         eLength = ((*s)->end - (*s)->sBlock) / sizeof(char);
+
                         j = 0;
                         for (i = 0; i < iLength; i++) {
                             lexem[j] = *((*s)->first + i * sizeof(char));
@@ -272,10 +299,10 @@ char *getLexem(Scanner *s) {
                         lexem[length] = '\0';
                     }
 
-
                 }else {
                     lexem = (char *) malloc((length + 1) * sizeof(char));
                     eLength = ((*s)->end - (*s)->sBlock) / sizeof(char);
+
                     j = 0;
                     for (i = 0; i < (*s)->blockSize; i++) {
                         lexem[j] = *((*s)->fBlock + i * sizeof(char));
@@ -296,8 +323,10 @@ char *getLexem(Scanner *s) {
         iLength = ((*s)->first - (*s)->fBlock);
         eLength = ((*s)->end - (*s)->fBlock);
 
-        //Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
-        //longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
+        /*
+         * Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
+         * longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
+         */
         if (eLength == -(sizeof(char))) {
             eLength = 0;
         }
@@ -310,14 +339,10 @@ char *getLexem(Scanner *s) {
 
             lexem = (char *) malloc((length + 1) * sizeof(char));
 
-            //printf("Lexema: [");
             for (i = 0; i < length; i++) {
                 lexem[i] = *((*s)->first + i * sizeof(char));
-                //printf("%c", lexem[i]);
             }
             lexem[length] = '\0';
-
-            //printf("]\n");
 
         } else {
             //Esta el inicio en fBlock y el final en sBlock
@@ -343,8 +368,10 @@ char *getLexem(Scanner *s) {
 
         eLength = ((*s)->end - (*s)->fBlock);
 
-        //Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
-        //longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
+        /*
+         * Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
+         * longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
+         */
         if (eLength == -(sizeof(char))) {
             eLength = 0;
         }

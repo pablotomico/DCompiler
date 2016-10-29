@@ -24,6 +24,10 @@ data getData(tree t) {
     return t->data;
 }
 
+/*
+ * Devuelve el componente léxico asociado al lexema de entrada
+ * Si no lo encuentra devuelve 0
+ */
 int getComponentByLex(tree t, data d) {
 
     int res = strcmp(d, t->data);
@@ -88,6 +92,10 @@ void insert(tree *t, data d, int comp) {
     }
 }
 
+/*
+ * Recorremos el árbol imprimiendo los elementos de la forma (izquierda-raiz-derecha)
+ * para mantener el orden y así que el resultado esté ordenado alfabéticamente
+ */
 void printTree(tree t) {
 
     if (t->left != NULL) {

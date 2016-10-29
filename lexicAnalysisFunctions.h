@@ -24,6 +24,3 @@ bool isNumberChar(char c);
 bool isBinaryChar(char c);
 
 bool isStringLiteralInitialChar(char c);
-
-//bool isCharLiteralInitialChar(char c);
-

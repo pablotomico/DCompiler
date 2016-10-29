@@ -52,6 +52,12 @@ lex getNextComponent(lexAnalyzer *la) {
     char *lexem = NULL;
     int res = 0;
     int nested_count = 0;
+
+    /*
+     * Definimos los estados en los que se puede encontrar nuestro analizador
+     * En caso de querer añadir nuevos componentes lexicos a reconocer, podemos
+     * crear fácilmente un estado.
+     */
     enum state {
         S_INITIAL,
         S_IDENTIFIER,
@@ -72,7 +78,14 @@ lex getNextComponent(lexAnalyzer *la) {
 
 
     do {
+        /*
+         * Mediante este switch representamos el autómata con los estados definidos anteriormente.
+         */
         switch (s) {
+            /*
+             * En este estado inicial comprobaremos cual es el siguiente estado al que debemos ir,
+             * ordenados por frecuencia aproximada de aparición.
+             */
             case S_INITIAL:
                 if (c == EOF) {
                     lexem = "$";
@@ -100,6 +113,9 @@ lex getNextComponent(lexAnalyzer *la) {
 
 
                 break;
+            /*
+             * 
+             */    
             case S_IDENTIFIER:
                 do {
                     c = getNextChar(&((*la)->s));
