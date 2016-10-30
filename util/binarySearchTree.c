@@ -57,8 +57,11 @@ void delete(tree *t) {
             delete(&(tAux->left));
         if (tAux->right != NULL)
             delete(&(tAux->right));
+        if(tAux->data != NULL)
+            free(tAux->data);
         free(tAux);
-        *t = NULL;
+    }else{
+        free(tAux);
     }
 }
 

@@ -12,7 +12,7 @@ struct scan {
     char *end;
     char *fBlock;
     char *sBlock;
-    int blockSize;
+    unsigned long blockSize;
     unsigned long readChars;
     bool isFirstBlock;
 };
@@ -50,7 +50,7 @@ void initScanner(Scanner *s, char *filePath) {
      */
     struct stat bs;
     stat(filePath, &bs);
-    sAux->blockSize = (int) bs.st_blksize;
+    sAux->blockSize = (unsigned long) bs.st_blksize;
 //    sAux->blockSize = 32;
 
     sAux->isFirstBlock = true;
@@ -166,15 +166,15 @@ void ignoreNextChar(Scanner *s) {
 
 
 char *getLexem(Scanner *s) {
-    int i = 0;
-    int j = 0;
+    unsigned int i = 0;
+    unsigned int j = 0;
     char *lexem = NULL;
 
 
     //Comprobar en que bloque esta el inicio del lexema
-    unsigned long iLength = ((*s)->first - (*s)->fBlock);
-    unsigned long eLength = 0;
-    unsigned long length = 0;
+    long iLength = ((*s)->first - (*s)->fBlock);
+    long eLength = 0;
+    long length = 0;
 
     if ((*s)->readChars > (*s)->blockSize) {
         /*
@@ -194,17 +194,17 @@ char *getLexem(Scanner *s) {
             lexem[length] = '\0';
         } else {
             eLength = (*s)->end - (*s)->fBlock;
-            if (eLength >= 0 && eLength <= (*s)->blockSize) {
+            if (eLength >= 0 && eLength <= (long)(*s)->blockSize) {
                 /*
                  * END esta en el primer bloque
                  */
 
                 //Comprobamos si podemos recuperar el inicio
-                if (length < (eLength + (*s)->blockSize)){
+                if (length < (eLength + (long)(*s)->blockSize)){
                     //Si se puede
                     iLength = ((*s)->first - (*s)->fBlock);
 
-                    if(iLength >= 0 && iLength <= (*s)->blockSize) {
+                    if(iLength >= 0 && iLength <= (long)(*s)->blockSize) {
                         /*
                          * FIRST esta en el primero
                          */
@@ -258,11 +258,11 @@ char *getLexem(Scanner *s) {
                  */
 
                 //Comprobamos si podemos recuperar el inicio
-                if (length < (eLength + (*s)->blockSize) / sizeof(char)) {
+                if ((unsigned long)length < (unsigned long)(eLength + (*s)->blockSize) / sizeof(char)) {
                     //Si se puede
                     iLength = ((*s)->first - (*s)->fBlock);
 
-                    if (iLength >= 0 && iLength <= (*s)->blockSize){
+                    if (iLength >= 0 && iLength <= (long)(*s)->blockSize){
                         /*
                          * FIRST esta en el primero
                          */
@@ -318,7 +318,7 @@ char *getLexem(Scanner *s) {
         }
 
 
-    } else if (iLength >= 0 && iLength <= (*s)->blockSize) {
+    } else if (iLength >= 0 && iLength <= (long)(*s)->blockSize) {
         //Esta en el primer bloque, pero ahora comprobamos donde esta el final de la misma forma
         iLength = ((*s)->first - (*s)->fBlock);
         eLength = ((*s)->end - (*s)->fBlock);
@@ -327,11 +327,11 @@ char *getLexem(Scanner *s) {
          * Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
          * longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
          */
-        if (eLength == -(sizeof(char))) {
+        if (eLength == (long)(-(sizeof(char)))) {
             eLength = 0;
         }
 
-        if (eLength >= 0 && eLength <= (*s)->blockSize) {
+        if (eLength >= 0 && eLength <= (long)(*s)->blockSize) {
             //Estan los dos en el primero, por lo que la longitud se calcula directamente
             eLength = ((*s)->end - (*s)->fBlock);
 
@@ -372,12 +372,12 @@ char *getLexem(Scanner *s) {
          * Hay que hacer esta comprobacion por si el puntero end esta justo una posicion detras del inicio del bloque, la
          * longitud del lexema dara una unidad por debajo de la real, por lo que nos aseguramos poniendo la longitud a 0
          */
-        if (eLength == -(sizeof(char))) {
+        if (eLength == (long)(-(sizeof(char)))) {
             eLength = 0;
         }
 
 
-        if (eLength >= 0 && eLength <= (*s)->blockSize) {
+        if (eLength >= 0 && eLength <= (long)(*s)->blockSize) {
             //Esta el inicio en sBlock y el final en fBlock
             eLength = ((*s)->end - (*s)->fBlock);
             iLength = (*s)->blockSize - iLength;

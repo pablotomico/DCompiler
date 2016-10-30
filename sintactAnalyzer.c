@@ -5,7 +5,7 @@
 #include "lexAnalyzer.h"
 
 
-int main(int argc, char **argv) {
+int main() {
     lexAnalyzer la;
     initLexAnalyzer(&la);
     lex l;

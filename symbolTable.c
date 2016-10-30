@@ -34,7 +34,7 @@ void initSymbolTable(symbolTable *st) {
 
 void addLexem(symbolTable *st, char *lex, int comp) {
     char *lexem = (char *) malloc(sizeof(char) * (strlen(lex) + 1));
-    int i = 0;
+    size_t i = 0;
     size_t length = strlen(lex) * sizeof(char);
     for (i = 0; i < strlen(lex); i++) {
         lexem[i] = lex[i];
@@ -69,10 +69,9 @@ void executeParse(symbolTable *st, char *filePath) {
     char *lex = NULL;
     int component = 0;
     size_t len = 0;
-    ssize_t read;
     int res = 0;
     size_t length = 0;
-    short i = 0;
+    size_t i = 0;
 
     (*st)->file = fopen(filePath, "r");
 
@@ -81,8 +80,7 @@ void executeParse(symbolTable *st, char *filePath) {
         exit(EXIT_FAILURE);
     }
 
-    while ((read = getline(&line, &len, (*st)->file)) != -1) {
-        //printf("%s", line);
+    while ((getline(&line, &len, (*st)->file)) != -1) {
         word = strtok(line, " ");
 
         res = strcmp(word, "#define");
@@ -101,8 +99,7 @@ void executeParse(symbolTable *st, char *filePath) {
             if (word != NULL && isdigit(word[0])) {
                 component = atoi(word);
                 addLexem(st, lex, component);
-                word = NULL;
-                component = 0;
+                free(lex);
             }
         }
 
