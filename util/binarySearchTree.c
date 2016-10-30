@@ -76,12 +76,11 @@ void insert(tree *t, char* d, int comp) {
     tree tAux;
     char* data = NULL;
 
-
-
     if (isEmpty(*t)) {
         tAux = (tree) malloc(sizeof(struct node));
-        data = (char*)malloc(sizeof(char)* strlen(d));
+        data = (char*)malloc(sizeof(char)* (strlen(d) + 1));
         strcpy(data, d);
+        data[strlen(d)] = '\0';
         tAux->data = data;
         tAux->component = comp;
         tAux->left = NULL;

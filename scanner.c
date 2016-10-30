@@ -51,7 +51,7 @@ void initScanner(Scanner *s, char *filePath) {
     struct stat bs;
     stat(filePath, &bs);
     sAux->blockSize = (unsigned long) bs.st_blksize;
-//    sAux->blockSize = 32;
+//    sAux->blockSize = 16;
 
     sAux->isFirstBlock = true;
     sAux->readChars = 0;

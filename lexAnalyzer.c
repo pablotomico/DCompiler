@@ -1,3 +1,4 @@
+#include <string.h>
 #include "symbolTable.h"
 #include "scanner.h"
 #include "util/lexDefinitions.h"
@@ -13,10 +14,11 @@ struct analyzer {
     Scanner s;
     int n_line;
 };
-typedef struct {
+typedef struct _lex lex;
+struct _lex{
     char *lexem;
     int component;
-} lex;
+};
 
 
 void confirmLexem(lexAnalyzer *la) {
@@ -88,7 +90,9 @@ lex getNextComponent(lexAnalyzer *la) {
              */
             case S_INITIAL:
                 if (c == EOF) {
-                    lexem = "$";
+                    lexem = (char *) malloc (sizeof(char) * 2);
+                    lexem[0] = '$';
+                    lexem[1] = '\0';
                     res = EOF;
                     s = S_FINAL;
                 } else if (isTrashChar(c)) {
@@ -383,7 +387,7 @@ lex getNextComponent(lexAnalyzer *la) {
                     if (c == EOF) {
                         unexpectedEOF(((*la)->n_line));
                         res = '0';
-                        lexem = NULL;
+                        lexem = getLexem(&((*la)->s));
                         s = S_INITIAL;
                         break;
                     } else if (c == '\n') {
@@ -581,6 +585,7 @@ lex getNextComponent(lexAnalyzer *la) {
              */
             case S_FINAL:
                 l.component = res;
+//                strcpy(l.lexem, lexem);
                 l.lexem = lexem;
                 return l;
 

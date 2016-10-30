@@ -18,7 +18,7 @@ int main() {
     do{
         l = getNextComponent(&la);
         printf("       %3d  -->  %s\n", l.component, l.lexem);
-
+        free(l.lexem);
     }while(l.component != EOF);
 
 

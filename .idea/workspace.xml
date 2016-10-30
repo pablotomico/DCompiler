@@ -12,17 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b4a2709-311b-48f3-85fc-e31d73167196" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/sintactAnalyzer.c" afterPath="$PROJECT_DIR$/syntacticAnalyzer.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/DCompiler.iml" afterPath="$PROJECT_DIR$/.idea/DCompiler.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/errorManager.c" afterPath="$PROJECT_DIR$/errorManager.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/errorManager.h" afterPath="$PROJECT_DIR$/errorManager.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lexAnalyzer.c" afterPath="$PROJECT_DIR$/lexAnalyzer.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/symbolTable.c" afterPath="$PROJECT_DIR$/symbolTable.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scanner.c" afterPath="$PROJECT_DIR$/scanner.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/syntacticAnalyzer.c" afterPath="$PROJECT_DIR$/syntacticAnalyzer.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/binarySearchTree.c" afterPath="$PROJECT_DIR$/util/binarySearchTree.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/binarySearchTree.h" afterPath="$PROJECT_DIR$/util/binarySearchTree.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/definitions.txt" afterPath="$PROJECT_DIR$/util/definitions.txt" />
     </list>
     <ignored path="DCompiler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +40,8 @@
       <file leaf-file-name="syntacticAnalyzer.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/syntacticAnalyzer.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -55,8 +50,22 @@
       <file leaf-file-name="binarySearchTree.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/binarySearchTree.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="126">
+              <caret line="79" column="50" selection-start-line="79" selection-start-column="50" selection-end-line="79" selection-end-column="50" />
+              <folding>
+                <marker date="1477855332138" expanded="true" signature="255:280" ph="{...}" />
+                <marker date="1477855332138" expanded="true" signature="471:864" ph="{...}" />
+                <marker date="1477855332138" expanded="true" signature="888:1170" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -65,19 +74,23 @@
       <file leaf-file-name="definitions.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/definitions.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+            <state relative-caret-position="504">
+              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lexAnalyzer.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="lexAnalyzer.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lexAnalyzer.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2826">
-              <caret line="281" column="54" selection-start-line="281" selection-start-column="54" selection-end-line="281" selection-end-column="54" />
-              <folding />
+            <state relative-caret-position="-474">
+              <caret line="94" column="36" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <marker date="1477854338697" expanded="true" signature="467:499" ph="{...}" />
+                <marker date="1477854338697" expanded="true" signature="531:573" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,18 +108,18 @@
       <file leaf-file-name="symbolTable.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/symbolTable.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
+            <state relative-caret-position="533">
               <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scanner.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scanner.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scanner.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2716">
-              <caret line="188" column="35" selection-start-line="188" selection-start-column="29" selection-end-line="188" selection-end-column="35" />
+            <state relative-caret-position="196">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,12 +159,13 @@
         <option value="$PROJECT_DIR$/sintactAnalyzer.c" />
         <option value="$PROJECT_DIR$/errorManager.h" />
         <option value="$PROJECT_DIR$/errorManager.c" />
-        <option value="$PROJECT_DIR$/util/binarySearchTree.c" />
         <option value="$PROJECT_DIR$/util/definitions.txt" />
         <option value="$PROJECT_DIR$/symbolTable.c" />
-        <option value="$PROJECT_DIR$/scanner.c" />
         <option value="$PROJECT_DIR$/scanner.h" />
         <option value="$PROJECT_DIR$/lexAnalyzer.c" />
+        <option value="$PROJECT_DIR$/syntacticAnalyzer.c" />
+        <option value="$PROJECT_DIR$/util/binarySearchTree.c" />
+        <option value="$PROJECT_DIR$/scanner.c" />
       </list>
     </option>
   </component>
@@ -440,12 +454,12 @@
       <workItem from="1477671938586" duration="8985000" />
       <workItem from="1477754622917" duration="2855000" />
       <workItem from="1477757495180" duration="1340000" />
-      <workItem from="1477825150783" duration="10342000" />
+      <workItem from="1477825150783" duration="15001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60409000" />
+    <option name="totallyTimeSpent" value="65068000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -458,7 +472,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1715138" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -466,9 +480,9 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6784512" sideWeight="0.5055928" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5" sideWeight="0.49440715" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.84343433" sideWeight="0.49440715" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.66835016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66835016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43602693" sideWeight="0.49739" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -496,7 +510,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="21" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -505,7 +519,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="39" />
-          <folding />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1477854338697" expanded="true" signature="467:499" ph="{...}" />
+            <marker date="1477854338697" expanded="true" signature="531:573" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -569,7 +587,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1477854338697" expanded="true" signature="467:499" ph="{...}" />
+            <marker date="1477854338697" expanded="true" signature="531:573" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,13 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/defParse.h" />
     <entry file="file://$PROJECT_DIR$/util/defParse.c" />
     <entry file="file://$PROJECT_DIR$/symbolTable.h">
@@ -821,34 +836,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/definitions.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/errorManager.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/binarySearchTree.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/symbolTable.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -861,26 +852,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scanner.c">
+    <entry file="file://$PROJECT_DIR$/util/definitions.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2716">
-          <caret line="188" column="35" selection-start-line="188" selection-start-column="29" selection-end-line="188" selection-end-column="35" />
+        <state relative-caret-position="504">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/syntacticAnalyzer.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/symbolTable.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lexAnalyzer.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2826">
-          <caret line="281" column="54" selection-start-line="281" selection-start-column="54" selection-end-line="281" selection-end-column="54" />
+        <state relative-caret-position="-474">
+          <caret line="94" column="36" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1477854338697" expanded="true" signature="467:499" ph="{...}" />
+            <marker date="1477854338697" expanded="true" signature="531:573" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/binarySearchTree.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="79" column="50" selection-start-line="79" selection-start-column="50" selection-end-line="79" selection-end-column="50" />
+          <folding>
+            <marker date="1477855332138" expanded="true" signature="255:280" ph="{...}" />
+            <marker date="1477855332138" expanded="true" signature="471:864" ph="{...}" />
+            <marker date="1477855332138" expanded="true" signature="888:1170" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scanner.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding />
         </state>
       </provider>
