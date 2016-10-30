@@ -106,15 +106,12 @@ lex getNextComponent(lexAnalyzer *la) {
                 } else if (isStringLiteralInitialChar(c)) {
                     s = S_STRING_LITERAL;
                 } else {
-                    res = EOF;
-                    lexem = "$";
+                    unknownComponent((*la)->n_line);
                     s = S_FINAL;
                 }
-
-
                 break;
             /*
-             * 
+             * Estado de reconocimiento de un identificador.
              */    
             case S_IDENTIFIER:
                 do {
@@ -133,7 +130,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 }
                 break;
 
-
+            /*
+             * Estado de reconocimiento de un separador.
+             */
             case S_SEPARATOR:
                 res = c;
                 s = S_FINAL;
@@ -142,6 +141,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 confirmLexem(la);
                 break;
 
+            /*
+             * Estado de reconocimiento de un simbolo de estructura.
+             */
             case S_STRUCTURE_SYMBOL:
                 res = c;
                 s = S_FINAL;
@@ -150,6 +152,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 confirmLexem(la);
                 break;
 
+            /*
+             * Estado de reconocimiento de un operador o un comentario.
+             */
             case S_OPERATOR:
                 switch (c) {
                     case '+':
@@ -283,7 +288,7 @@ lex getNextComponent(lexAnalyzer *la) {
                         if(c == EOF){
                             unexpectedEOF(((*la)->n_line));
                             res = '0';
-                            lexem = NULL;
+                            free(lexem);
                             s = S_INITIAL;
                             break;
                         }else if (c == '/') {
@@ -293,7 +298,7 @@ lex getNextComponent(lexAnalyzer *la) {
                             if(c == EOF){
                                 unexpectedEOF(((*la)->n_line));
                                 res = '0';
-                                lexem = NULL;
+                                free(lexem);
                                 s = S_INITIAL;
                                 break;
                             } else if (c == '*') {
@@ -303,11 +308,10 @@ lex getNextComponent(lexAnalyzer *la) {
 
                                     //Confirmamos lexema pero no devolvemos el componente lexico
 
-                                    getLexem(&((*la)->s));
+                                    lexem = getLexem(&((*la)->s));
+                                    free(lexem);
                                     confirmLexem(la);
                                     c = getNextChar(&((*la)->s));
-                                    lexem = NULL;
-
                                     s = S_INITIAL;
                                 } else if (c == '\n'){
                                     newLine(la);
@@ -317,7 +321,7 @@ lex getNextComponent(lexAnalyzer *la) {
                                         if (c == EOF) {
                                             unexpectedEOF(((*la)->n_line));
                                             res = '0';
-                                            lexem = NULL;
+                                            free(lexem);
                                             s = S_INITIAL;
                                             break;
                                         } else if (c == '\n') {
@@ -355,17 +359,24 @@ lex getNextComponent(lexAnalyzer *la) {
                 }
                 break;
 
+            /*
+             * Estado para reconocer comentarios de una linea.
+             */
             case S_COMMENT_ONELINE:
                 do {
                     c = getNextChar(&((*la)->s));
                 } while (c != '\n');
                 //newLine(la);
                 lexem = getLexem(&((*la)->s));
+                free(lexem);
                 confirmLexem(la);
                 c = getNextChar(&((*la)->s));
                 s = S_INITIAL;
                 break;
 
+            /*
+             * Estado de reconocimiento de un comentario multilinea.
+             */
             case S_COMMENT_MULTILINE:
                 while (s != S_INITIAL) {
                     c = getNextChar(&((*la)->s));
@@ -381,9 +392,9 @@ lex getNextComponent(lexAnalyzer *la) {
                         c = getNextChar(&((*la)->s));
                         if (c == '/') {
                             res = '0';
-                            lexem = NULL;
                             c = getNextChar(&((*la)->s));
-                            getLexem(&((*la)->s));
+                            lexem = getLexem(&((*la)->s));
+                            free(lexem);
                             confirmLexem(la);
 
                             c = getNextChar(&((*la)->s));
@@ -395,6 +406,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 }
                 break;
 
+            /*
+             * Estado que reconoce comentarios anidados.
+             */
             case S_COMMENT_NESTED:
                 nested_count = 1;
                 while (nested_count > 0) {
@@ -424,16 +438,20 @@ lex getNextComponent(lexAnalyzer *la) {
                     }
                 }
                 res = '0';
-                lexem = NULL;
                 c = getNextChar(&((*la)->s));
-                getLexem(&((*la)->s));
+                lexem = getLexem(&((*la)->s));
+                free(lexem);
                 confirmLexem(la);
 
                 c = getNextChar(&((*la)->s));
                 s = S_INITIAL;
                 break;
 
+            /*
+             * Estado que reconoce los tipos de numeros.
+             */
             case S_NUMBER:
+                //Binarios
                 if (c == '0') {
                     c = getNextChar(&((*la)->s));
                     if (c == 'b') {
@@ -445,15 +463,18 @@ lex getNextComponent(lexAnalyzer *la) {
                     c = getNextChar(&((*la)->s));
                 }
 
-
+                /*
+                 * Si no es un binario, podemos asumir que estamos leyendo un entero a no ser que encontremos algo que
+                 * demuestre lo contrario.
+                 */
                 res = INTEGER;
 
+                //Si hallamos un punto, es un float
                 if (c == '.') {
                     //Reconocemos la segunda parte del float
                     do {
                         c = getNextChar(&((*la)->s));
                     } while (isNumberChar(c));
-
 
                     res = FLOAT;
 
@@ -494,7 +515,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 s = S_FINAL;
 
                 break;
-
+            /*
+             * Estado de reconocimiento de binarios.
+             */
             case S_BINARY:
                 c = getNextChar(&((*la)->s));
                 if (isBinaryChar(c)) {
@@ -514,7 +537,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 }
                 break;
 
-
+            /*
+             * Estado que reconoce las cadenas literales.
+             */
             case S_STRING_LITERAL:
                 while (s != S_FINAL) {
                     c = getNextChar(&((*la)->s));
@@ -539,6 +564,9 @@ lex getNextComponent(lexAnalyzer *la) {
                 }
                 break;
 
+            /*
+             * Estado para reconocer elementos a ignorar.
+             */
             case S_TRASH:
                 if (c == '\n') {
                     newLine(la);
@@ -547,9 +575,11 @@ lex getNextComponent(lexAnalyzer *la) {
                 c = getNextChar(&((*la)->s));
                 s = S_INITIAL;
                 break;
+
+            /*
+             * Estado final
+             */
             case S_FINAL:
-
-
                 l.component = res;
                 l.lexem = lexem;
                 return l;

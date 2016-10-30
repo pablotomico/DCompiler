@@ -18,10 +18,12 @@ int main() {
     do{
         l = getNextComponent(&la);
         printf("       %3d  -->  %s\n", l.component, l.lexem);
+
     }while(l.component != EOF);
 
-    printSymbols(&la);
 
+    printSymbols(&la);
     deleteLexAnalyzer(&la);
+
     return EXIT_SUCCESS;
 }

@@ -16,7 +16,7 @@ struct table {
 
 void executeParse(symbolTable *st, char *filePath);
 
-void createSymbolTable(symbolTable *st){
+void createSymbolTable(symbolTable *st) {
     *st = NULL;
 }
 
@@ -25,10 +25,8 @@ void initSymbolTable(symbolTable *st) {
     stAux = (symbolTable) malloc(sizeof(struct table));
     stAux->t = NULL;
     stAux->file = NULL;
-
     create(&(stAux)->t);
     executeParse(&stAux, DEFINITIONS_PATH);
-
     *st = stAux;
 }
 
@@ -41,6 +39,7 @@ void addLexem(symbolTable *st, char *lex, int comp) {
     }
     lexem[length] = '\0';
     insert(&((*st)->t), lexem, comp);
+    free(lexem);
 }
 
 int getComponentByLexem(symbolTable st, char *lex) {
@@ -69,7 +68,6 @@ void executeParse(symbolTable *st, char *filePath) {
     char *lex = NULL;
     int component = 0;
     size_t len = 0;
-    int res = 0;
     size_t length = 0;
     size_t i = 0;
 
@@ -83,12 +81,7 @@ void executeParse(symbolTable *st, char *filePath) {
     while ((getline(&line, &len, (*st)->file)) != -1) {
         word = strtok(line, " ");
 
-        res = strcmp(word, "#define");
-        if (res == 0) {
-            word = strtok(NULL, " ");
-        }
-        res = strcmp(word, "#define");
-        if (res != 0 && isalpha(word[0])) {
+        if (isalpha(word[0])) {
             length = strlen(word) * sizeof(char);
             lex = (char *) malloc(length + sizeof(char));
             for (i = 0; i < length; i++) {
@@ -99,18 +92,15 @@ void executeParse(symbolTable *st, char *filePath) {
             if (word != NULL && isdigit(word[0])) {
                 component = atoi(word);
                 addLexem(st, lex, component);
+
                 free(lex);
             }
         }
-
-        //printf("%s\n", word);
     }
 
     fclose((*st)->file);
 
-    if (line) {
-        free(line);
-    }
 
-    //printTree((*st)->t);
+    if (line)
+        free(line);
 }

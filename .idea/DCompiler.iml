@@ -15,7 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/errorManager.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/symbolTable.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/lexicAnalysisFunctions.c" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/sintactAnalyzer.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/syntacticAnalyzer.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/errorManager.c" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,98 +1,98 @@
-#define import 318
-#define double 300
-#define void 367
-#define int 321
-#define while 369
-#define foreach 310
-#define return 343
-#define cast 284
-#define pragma 336
-#define is 325
-#define ireal 324
-#define true 355
-#define final 306
-#define class 290
-#define with 370
-#define ushort 365
-#define else 301
-#define ref 342
-#define interface 322
-#define ubyte 359
-#define struct 348
-#define typeof 358
-#define lazy 326
-#define short 346
-#define dchar 294
-#define false 305
-#define float 308
-#define do 299
-#define protected 338
-#define extern 304
-#define align 275
-#define ulong 362
-#define deprecated 298
-#define invariant 323
-#define wchar 368
-#define const 291
-#define abstract 273
-#define assert 277
-#define super 349
-#define inout 320
-#define default 296
-#define package 335
-#define continue 292
-#define union 363
-#define foreach_reverse 311
-#define for 309
-#define real 341
-#define cfloat 288
-#define typeid 357
-#define version 366
-#define synchronized 351
-#define new 330
-#define debug 295
-#define function 312
-#define private 337
-#define unittest 364
-#define mixin 328
-#define static 347
-#define pure 340
-#define override 334
-#define catch 285
-#define out 333
-#define break 281
-#define shared 345
-#define in 319
-#define scope 344
-#define public 339
-#define if 315
-#define enum 302
-#define cent 287
-#define module 329
-#define byte 282
-#define char 289
-#define immutable 317
-#define creal 293
-#define ifloat 316
-#define bool 280
-#define auto 278
-#define cdouble 286
-#define ucent 360
-#define long 327
-#define export 303
-#define finally 307
-#define try 356
-#define switch 350
-#define uint 361
-#define this 353
-#define asm 276
-#define throw 354
-#define idouble 314
-#define null 332
-#define template 352
-#define nothrow 331
-#define goto 313
-#define case 283
-#define body 279
-#define delegate 297
-#define alias 274
+import 318
+double 300
+void 367
+int 321
+while 369
+foreach 310
+return 343
+cast 284
+pragma 336
+is 325
+ireal 324
+true 355
+final 306
+class 290
+with 370
+ushort 365
+else 301
+ref 342
+interface 322
+ubyte 359
+struct 348
+typeof 358
+lazy 326
+short 346
+dchar 294
+false 305
+float 308
+do 299
+protected 338
+extern 304
+align 275
+ulong 362
+deprecated 298
+invariant 323
+wchar 368
+const 291
+abstract 273
+assert 277
+super 349
+inout 320
+default 296
+package 335
+continue 292
+union 363
+foreach_reverse 311
+for 309
+real 341
+cfloat 288
+typeid 357
+version 366
+synchronized 351
+new 330
+debug 295
+function 312
+private 337
+unittest 364
+mixin 328
+static 347
+pure 340
+override 334
+catch 285
+out 333
+break 281
+shared 345
+in 319
+scope 344
+public 339
+if 315
+enum 302
+cent 287
+module 329
+byte 282
+char 289
+immutable 317
+creal 293
+ifloat 316
+bool 280
+auto 278
+cdouble 286
+ucent 360
+long 327
+export 303
+finally 307
+try 356
+switch 350
+uint 361
+this 353
+asm 276
+throw 354
+idouble 314
+null 332
+template 352
+nothrow 331
+goto 313
+case 283
+body 279
+delegate 297
+alias 274

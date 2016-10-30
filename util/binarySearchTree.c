@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef char *data;
+
 typedef struct node *tree;
 struct node {
     char *data;
@@ -20,7 +20,7 @@ bool isEmpty(tree t) {
     return t == NULL;
 }
 
-data getData(tree t) {
+char* getData(tree t) {
     return t->data;
 }
 
@@ -28,7 +28,7 @@ data getData(tree t) {
  * Devuelve el componente léxico asociado al lexema de entrada
  * Si no lo encuentra devuelve 0
  */
-int getComponentByLex(tree t, data d) {
+int getComponentByLex(tree t, char* d) {
 
     int res = strcmp(d, t->data);
     if (res < 0) {
@@ -60,8 +60,6 @@ void delete(tree *t) {
         if(tAux->data != NULL)
             free(tAux->data);
         free(tAux);
-    }else{
-        free(tAux);
     }
 }
 
@@ -73,20 +71,24 @@ tree right(tree t) {
     return t->right;
 }
 
-void insert(tree *t, data d, int comp) {
+void insert(tree *t, char* d, int comp) {
 
     tree tAux;
-    tAux = (tree) malloc(sizeof(struct node));
-    tAux->data = d;
-    tAux->component = comp;
-    tAux->left = NULL;
-    tAux->right = NULL;
+    char* data = NULL;
+
+
 
     if (isEmpty(*t)) {
+        tAux = (tree) malloc(sizeof(struct node));
+        data = (char*)malloc(sizeof(char)* strlen(d));
+        strcpy(data, d);
+        tAux->data = data;
+        tAux->component = comp;
+        tAux->left = NULL;
+        tAux->right = NULL;
         *t = tAux;
     } else {
         int res = strcmp(d, (*t)->data);
-
         if (res < 0) {
             insert(&((*t)->left), d, comp);
         } else {
@@ -94,6 +96,7 @@ void insert(tree *t, data d, int comp) {
         }
     }
 }
+
 
 /*
  * Recorremos el árbol imprimiendo los elementos de la forma (izquierda-raiz-derecha)

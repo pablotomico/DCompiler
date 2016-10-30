@@ -8,6 +8,8 @@ void unexpectedEOF(int lineNumber);
 
 void unexpectedEndOfLine(int lineNumber);
 
+void unknownComponent(int lineNumber);
+
 void malformedBinary(int lineNumber, char* number);
 
 void malformedScientific(int lineNumber, char* number);
